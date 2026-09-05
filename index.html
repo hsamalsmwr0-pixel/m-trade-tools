@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0d1117">
+
+    <title>M-Trade Tools - حاسبة الأرباح</title>
+
+    <style>
+        :root {
+            --bg: #0d1117;
+            --card: #161b22;
+            --card-2: #0d1117;
+            --border: #30363d;
+            --text: #f0f6fc;
+            --muted: #8b949e;
+            --green: #238636;
+            --green-hover: #2ea043;
+            --blue: #58a6ff;
+            --red: #f85149;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--bg);
+            color: var(--text);
+            font-family:
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--green-hover);
+        }
+
+        .subtitle {
+            margin: 6px 0 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 0 0 18px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        input,
+        select {
+            width: 100%;
+            height: 46px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            background: var(--card-2);
+            color: var(--text);
+            padding: 0 12px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.12);
+        }
+
+        input::placeholder {
+            color: #6e7681;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .currency-row {
+            display: grid;
+            grid-template-columns: 1fr 130px;
+            gap: 10px;
+        }
+
+        button {
+            width: 100%;
+            height: 48px;
+            margin-top: 8px;
+            border: none;
+            border-radius: 9px;
+            background: var(--green);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: var(--green-hover);
+        }
+
+        button:active {
+            transform: scale(0.99);
+        }
+
+        .secondary-button {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            margin-top: 10px;
+        }
+
+        .secondary-button:hover {
+            background: #21262d;
+        }
+
+        .results {
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border);
+        }
+
+        .results-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 11px 0;
+            border-bottom: 1px solid rgba(48, 54, 61, 0.6);
+            font-size: 14px;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            color: var(--muted);
+        }
+
+        .result-value {
+            font-weight: 700;
+        }
+
+        .profit-box {
+            margin-top: 12px;
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--card-2);
+        }
+
+        .profit-box .result-item {
+            border: none;
+        }
+
+        .profit-positive {
+            color: #3fb950;
+        }
+
+        .profit-negative {
+            color: var(--red);
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 18px;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+
+            .card {
+                padding: 16px;
+            }
+
+            .row,
+            .currency-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header class="header">
+        <div class="logo">M-Trade <span>Tools</span></div>
+        <p class="subtitle">أدوات بسيطة وذكية للتاجر</p>
+    </header>
+
+    <main class="card">
+
+        <h2 class="section-title">حاسبة ربح المنتج</h2>
+
+        <div class="form-group">
+            <label for="productName">اسم المنتج</label>
+            <input
+                type="text"
+                id="productName"
+                placeholder="مثال: ساعة ذكية"
+            >
+        </div>
+
+        <div class="currency-row">
+
+            <div class="form-group">
+                <label for="sellingPrice">سعر البيع</label>
+                <input
+                    type="number"
+                    id="sellingPrice"
+                    placeholder="0.00"
+                    min="0"
+                    step="any"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="currency">العملة</label>
+                <select id="currency">
+                    <option value="د.أ">دينار أردني</option>
+                    <option value="$">دولار</option>
+                    <option value="ر.س">ريال سعودي</option>
+                    <option value="د.إ">درهم إماراتي</option>
+                    <option value="ج.م">جنيه مصري</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="form-group">
+                <label for="purchasePrice">سعر الشراء / قطعة</label>
+                <input
+                    type="number"
+                    id="purchasePrice"
+                    placeholder="0.00"
+                    min="0"
+                    step="any"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="shippingCost">الشحن / قطعة</label>
+                <input
+                    type="number"
+                    id="shippingCost"
+                    placeholder="0.00"
+                    min="0"
+                    step="any"
+                >
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="form-group">
+                <label for="packagingCost">التغليف / قطعة</label>
+                <input
+                    type="number"
+                    id="packagingCost"
+                    placeholder="0.00"
+                    min="0"
+                    step="any"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="adCost">الإعلان / قطعة</label>
+                <input
+                    type="number"
+                    id="adCost"
+                    placeholder="0.00"
+                    min="0"
+                    step="any"
+                >
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label for="units">عدد الوحدات</label>
+            <input
+                type="number"
+                id="units"
+                value="1"
+                min="1"
+                step="1"
+            >
+        </div>
+
+        <button onclick="calculateProfit()">
+            احسب الأرباح
+        </button>
+
+        <button
+            class="secondary-button"
+            onclick="clearCalculator()"
+        >
+            مسح البيانات
+        </button>
+
+        <section class="results">
+
+            <div class="results-title">
+                النتائج
+            </div>
+
+            <div class="result-item">
+                <span class="result-label">
+                    تكلفة القطعة
+                </span>
+
+                <span
+                    class="result-value"
+                    id="costPerUnit"
+                >
+                    0.00
+                </span>
+            </div>
+
+            <div class="result-item">
+                <span class="result-label">
+                    ربح القطعة
+                </span>
+
+                <span
+                    class="result-value"
+                    id="profitPerUnit"
+                >
+                    0.00
+                </span>
+            </div>
+
+            <div class="result-item">
+                <span class="result-label">
+                    إجمالي الإيرادات
+                </span>
+
+                <span
+                    class="result-value"
+                    id="revenueResult"
+                >
+                    0.00
+                </span>
+            </div>
+
+            <div class="result-item">
+                <span class="result-label">
+                    إجمالي التكاليف
+                </span>
+
+                <span
+                    class="result-value"
+                    id="costResult"
+                >
+                    0.00
+                </span>
+            </div>
+
+            <div class="profit-box">
+
+                <div class="result-item">
+
+                    <span>
+                        صافي الربح
+                    </span>
+
+                    <span
+                        class="result-value"
+                        id="profitResult"
+                    >
+                        0.00
+                    </span>
+
+                </div>
+
+                <div class="result-item">
+
+                    <span>
+                        هامش الربح
+                    </span>
+
+                    <span
+                        class="result-value"
+                        id="marginResult"
+                    >
+                        0%
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        M-Trade Tools — الإصدار V1
+    </footer>
+
+</div>
+
+<script>
+
+function getNumber(id) {
+    return parseFloat(document.getElementById(id).value) || 0;
+}
+
+function formatMoney(value) {
+    return value.toFixed(2);
+}
+
+function calculateProfit() {
+
+    const purchase = getNumber("purchasePrice");
+    const shipping = getNumber("shippingCost");
+    const packaging = getNumber("packagingCost");
+    const ad = getNumber("adCost");
+    const selling = getNumber("sellingPrice");
+    const units = getNumber("units");
+
+    const currency =
+        document.getElementById("currency").value;
+
+    if (units <= 0) {
+        return;
+    }
+
+    const costPerUnit =
+        purchase +
+        shipping +
+        packaging +
+        ad;
+
+    const profitPerUnit =
+        selling -
+        costPerUnit;
+
+    const totalCost =
+        costPerUnit * units;
+
+    const totalRevenue =
+        selling * units;
+
+    const netProfit =
+        totalRevenue -
+        totalCost;
+
+    const margin =
+        totalRevenue > 0
+            ? (netProfit / totalRevenue) * 100
+            : 0;
+
+    document.getElementById("costPerUnit").innerText =
+        formatMoney(costPerUnit) + " " + currency;
+
+    document.getElementById("profitPerUnit").innerText =
+        formatMoney(profitPerUnit) + " " + currency;
+
+    document.getElementById("revenueResult").innerText =
+        formatMoney(totalRevenue) + " " + currency;
+
+    document.getElementById("costResult").innerText =
+        formatMoney(totalCost) + " " + currency;
+
+    document.getElementById("profitResult").innerText =
+        formatMoney(netProfit) + " " + currency;
+
+    document.getElementById("marginResult").innerText =
+        margin.toFixed(2) + "%";
+
+    const profitElements = [
+        document.getElementById("profitResult"),
+        document.getElementById("profitPerUnit")
+    ];
+
+    profitElements.forEach(element => {
+
+        element.classList.remove(
+            "profit-positive",
+            "profit-negative"
+        );
+
+        if (netProfit > 0) {
+            element.classList.add("profit-positive");
+        } else if (netProfit < 0) {
+            element.classList.add("profit-negative");
+        }
+
+    });
+}
+
+function clearCalculator() {
+
+    document.getElementById("productName").value = "";
+    document.getElementById("purchasePrice").value = "";
+    document.getElementById("shippingCost").value = "";
+    document.getElementById("packagingCost").value = "";
+    document.getElementById("adCost").value = "";
+    document.getElementById("sellingPrice").value = "";
+    document.getElementById("units").value = "1";
+
+    document.getElementById("costPerUnit").innerText = "0.00";
+    document.getElementById("profitPerUnit").innerText = "0.00";
+    document.getElementById("revenueResult").innerText = "0.00";
+    document.getElementById("costResult").innerText = "0.00";
+    document.getElementById("profitResult").innerText = "0.00";
+    document.getElementById("marginResult").innerText = "0%";
+
+    document.getElementById("profitResult")
+        .classList.remove(
+            "profit-positive",
+            "profit-negative"
+        );
+
+    document.getElementById("profitPerUnit")
+        .classList.remove(
+            "profit-positive",
+            "profit-negative"
+        );
+}
+
+</script>
+
+</body>
+  </html>
