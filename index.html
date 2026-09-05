@@ -1,1026 +1,343 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>M-Trade Tools — حاسبة الأرباح</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #0f1115;
-      color: #f5f5f5;
-      padding: 20px;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: auto;
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 8px;
-    }
-
-    .subtitle {
-      text-align: center;
-      color: #9ca3af;
-      margin-bottom: 25px;
-    }
-
-    .card {
-      background: #171a21;
-      border: 1px solid #252a34;
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-
-    h2 {
-      margin-bottom: 18px;
-      font-size: 20px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-    }
-
-    .field.full {
-      grid-column: 1 / -1;
-    }
-
-    label {
-      color: #cbd5e1;
-      font-size: 14px;
-    }
-
-    input,
-    select {
-      width: 100%;
-      padding: 13px;
-      border-radius: 10px;
-      border: 1px solid #303744;
-      background: #0f131a;
-      color: white;
-      font-size: 16px;
-      outline: none;
-    }
-
-    input:focus,
-    select:focus {
-      border-color: #64748b;
-    }
-
-    .buttons {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    button {
-      border: none;
-      border-radius: 10px;
-      padding: 13px;
-      font-size: 15px;
-      cursor: pointer;
-      color: white;
-      background: #2563eb;
-    }
-
-    button.secondary {
-      background: #374151;
-    }
-
-    button.danger {
-      background: #7f1d1d;
-    }
-
-    button:hover {
-      opacity: 0.9;
-    }
-
-    .results {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .result {
-      background: #0f131a;
-      border: 1px solid #252a34;
-      border-radius: 12px;
-      padding: 15px;
-    }
-
-    .result .label {
-      color: #9ca3af;
-      font-size: 13px;
-      margin-bottom: 7px;
-    }
-
-    .result .value {
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    .highlight {
-      border-color: #475569;
-    }
-
-    .analysis {
-      background: #0f131a;
-      border-radius: 12px;
-      padding: 16px;
-      line-height: 1.8;
-      color: #d1d5db;
-    }
-
-    .analysis strong {
-      color: white;
-    }
-
-    .status {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-
-    .target-box {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .saved-product {
-      background: #0f131a;
-      border: 1px solid #252a34;
-      border-radius: 12px;
-      padding: 15px;
-      margin-bottom: 10px;
-    }
-
-    .saved-product-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    .saved-product small {
-      color: #9ca3af;
-    }
-
-    .saved-actions {
-      display: flex;
-      gap: 8px;
-    }
-
-    .saved-actions button {
-      padding: 8px 12px;
-      font-size: 13px;
-    }
-
-    .empty {
-      color: #9ca3af;
-      text-align: center;
-      padding: 15px;
-    }
-
-    @media (max-width: 650px) {
-      body {
-        padding: 12px;
-      }
-
-      .grid,
-      .results,
-      .target-box,
-      .buttons {
-        grid-template-columns: 1fr;
-      }
-
-      .field.full {
-        grid-column: auto;
-      }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0f14">
+  <meta name="description" content="M-Trade Tools - أدوات التاجر الذكي لحساب أرباح المنتجات وتقييم جدوى المنتج">
+  <title>M-Trade Tools | أدوات التاجر الذكي</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+  <div class="app">
 
-<div class="container">
-
-  <h1>📊 M-Trade Tools</h1>
-  <div class="subtitle">حاسبة الأرباح الذكية للتاجر</div>
-
-  <!-- Calculator -->
-  <div class="card">
-
-    <h2>حاسبة الأرباح</h2>
-
-    <div class="grid">
-
-      <div class="field full">
-        <label>اسم المنتج</label>
-        <input id="productName" type="text" placeholder="مثال: ساعة" />
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon">M</div>
+        <div>
+          <h1>M-Trade Tools</h1>
+          <p>أدوات التاجر الذكي</p>
+        </div>
       </div>
 
-      <div class="field">
-        <label>العملة</label>
-        <select id="currency">
-          <option value="JOD">د.أ — دينار أردني</option>
-          <option value="USD">$ — دولار أمريكي</option>
-          <option value="SAR">ر.س — ريال سعودي</option>
-          <option value="AED">د.إ — درهم إماراتي</option>
-          <option value="EGP">ج.م — جنيه مصري</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>سعر البيع للقطعة</label>
-        <input id="sellingPrice" type="number" step="0.01" value="0" />
-      </div>
-
-      <div class="field">
-        <label>سعر الشراء للقطعة</label>
-        <input id="purchasePrice" type="number" step="0.01" value="0" />
-      </div>
-
-      <div class="field">
-        <label>الشحن للقطعة</label>
-        <input id="shipping" type="number" step="0.01" value="0" />
-      </div>
-
-      <div class="field">
-        <label>التغليف للقطعة</label>
-        <input id="packaging" type="number" step="0.01" value="0" />
-      </div>
-
-      <div class="field">
-        <label>الإعلان للقطعة</label>
-        <input id="adCost" type="number" step="0.01" value="0" />
-      </div>
-
-      <div class="field">
-        <label>عدد الوحدات</label>
-        <input id="units" type="number" step="1" value="1" />
-      </div>
-
-      <div class="field">
-        <label>التكاليف الثابتة</label>
-        <input id="fixedCosts" type="number" step="0.01" value="0" />
-      </div>
-
-      <div class="field">
-        <label>الهامش المستهدف %</label>
-        <input id="targetMargin" type="number" step="0.01" value="30" />
-      </div>
-
-    </div>
-
-    <div class="buttons">
-      <button onclick="calculateProfit()">احسب الأرباح</button>
-      <button class="secondary" onclick="saveProduct()">حفظ المنتج</button>
-      <button class="danger" onclick="clearCalculator()">مسح</button>
-    </div>
-
-  </div>
-
-
-  <!-- Financial Results -->
-  <div class="card">
-
-    <h2>📈 النتائج المالية</h2>
-
-    <div class="results">
-
-      <div class="result">
-        <div class="label">تكلفة القطعة المتغيرة</div>
-        <div class="value" id="costPerUnit">0.00</div>
-      </div>
-
-      <div class="result">
-        <div class="label">هامش المساهمة للقطعة</div>
-        <div class="value" id="contributionPerUnit">0.00</div>
-      </div>
-
-      <div class="result">
-        <div class="label">صافي ربح القطعة</div>
-        <div class="value" id="profitPerUnit">0.00</div>
-      </div>
-
-      <div class="result">
-        <div class="label">إجمالي المبيعات</div>
-        <div class="value" id="revenue">0.00</div>
-      </div>
-
-      <div class="result">
-        <div class="label">إجمالي التكاليف</div>
-        <div class="value" id="totalCosts">0.00</div>
-      </div>
-
-      <div class="result highlight">
-        <div class="label">صافي الربح</div>
-        <div class="value" id="netProfit">0.00</div>
-      </div>
-
-      <div class="result">
-        <div class="label">هامش الربح</div>
-        <div class="value" id="margin">0.00%</div>
-      </div>
-
-      <div class="result">
-        <div class="label">ROI العائد على الاستثمار</div>
-        <div class="value" id="roi">0.00%</div>
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- Commercial Analysis -->
-  <div class="card">
-
-    <h2>🧠 التقييم التجاري</h2>
-
-    <div class="analysis">
-      <div class="status" id="status">—</div>
-      <div id="analysisText">أدخل البيانات واضغط احسب الأرباح.</div>
-    </div>
-
-  </div>
-
-
-  <!-- Target Price -->
-  <div class="card">
-
-    <h2>🎯 السعر المستهدف</h2>
-
-    <div class="target-box">
-
-      <div class="result">
-        <div class="label">الهامش المستهدف</div>
-        <div class="value" id="targetMarginResult">30.00%</div>
-      </div>
-
-      <div class="result highlight">
-        <div class="label">سعر البيع المطلوب</div>
-        <div class="value" id="targetPrice">0.00</div>
-      </div>
-
-    </div>
-
-    <div class="analysis" style="margin-top:12px;">
-      <div id="targetMessage">—</div>
-    </div>
-
-  </div>
-
-
-  <!-- Break Even -->
-  <div class="card">
-
-    <h2>⚖️ نقطة التعادل</h2>
-
-    <div class="results">
-
-      <div class="result">
-        <div class="label">وحدات نقطة التعادل</div>
-        <div class="value" id="breakEvenUnits">0 قطعة</div>
-      </div>
-
-      <div class="result">
-        <div class="label">مبيعات نقطة التعادل</div>
-        <div class="value" id="breakEvenRevenue">0.00</div>
-      </div>
-
-    </div>
-
-    <div class="analysis" style="margin-top:12px;">
-      <div id="breakEvenMessage">—</div>
-    </div>
-
-  </div>
-
-
-  <!-- Saved Products -->
-  <div class="card">
-
-    <h2>💾 المنتجات المحفوظة</h2>
-
-    <div id="savedProducts"></div>
-
-  </div>
-
-</div>
-
-
-<script>
-
-  const currencySymbols = {
-    JOD: "د.أ",
-    USD: "$",
-    SAR: "ر.س",
-    AED: "د.إ",
-    EGP: "ج.م"
-  };
-
-
-  function getNumber(id) {
-    const value = parseFloat(document.getElementById(id).value);
-    return Number.isFinite(value) ? value : 0;
-  }
-
-
-  function formatMoney(value, currency) {
-    const symbol = currencySymbols[currency] || currency;
-
-    return new Intl.NumberFormat("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    }).format(value) + " " + symbol;
-  }
-
-
-  function calculateProfit() {
-
-    const productName =
-      document.getElementById("productName").value.trim() || "منتج";
-
-    const currency =
-      document.getElementById("currency").value;
-
-    const sellingPrice = getNumber("sellingPrice");
-    const purchasePrice = getNumber("purchasePrice");
-    const shipping = getNumber("shipping");
-    const packaging = getNumber("packaging");
-    const adCost = getNumber("adCost");
-    const units = Math.max(0, getNumber("units"));
-    const fixedCosts = Math.max(0, getNumber("fixedCosts"));
-    const targetMargin = getNumber("targetMargin");
-
-
-    /*
-      1. التكلفة المتغيرة للقطعة
-    */
-
-    const costPerUnit =
-      purchasePrice +
-      shipping +
-      packaging +
-      adCost;
-
-
-    /*
-      2. هامش المساهمة للقطعة
-    */
-
-    const contributionPerUnit =
-      sellingPrice - costPerUnit;
-
-
-    /*
-      3. إجمالي المبيعات
-    */
-
-    const revenue =
-      sellingPrice * units;
-
-
-    /*
-      4. إجمالي التكاليف المتغيرة
-    */
-
-    const totalVariableCosts =
-      costPerUnit * units;
-
-
-    /*
-      5. إجمالي التكاليف
-    */
-
-    const totalCosts =
-      totalVariableCosts + fixedCosts;
-
-
-    /*
-      6. صافي الربح
-    */
-
-    const netProfit =
-      revenue - totalCosts;
-
-
-    /*
-      7. صافي ربح القطعة
-      يتم توزيع التكاليف الثابتة على عدد الوحدات
-    */
-
-    const fixedCostPerUnit =
-      units > 0 ? fixedCosts / units : 0;
-
-    const profitPerUnit =
-      contributionPerUnit - fixedCostPerUnit;
-
-
-    /*
-      8. هامش الربح
-    */
-
-    const margin =
-      revenue > 0
-        ? (netProfit / revenue) * 100
-        : 0;
-
-
-    /*
-      9. ROI
-      العائد على إجمالي التكاليف
-    */
-
-    const roi =
-      totalCosts > 0
-        ? (netProfit / totalCosts) * 100
-        : 0;
-
-
-    /*
-      10. نقطة التعادل
-    */
-
-    let breakEvenUnits = 0;
-    let breakEvenRevenue = 0;
-
-    if (contributionPerUnit > 0 && fixedCosts > 0) {
-
-      breakEvenUnits =
-        Math.ceil(fixedCosts / contributionPerUnit);
-
-      breakEvenRevenue =
-        breakEvenUnits * sellingPrice;
-
-    } else if (fixedCosts === 0) {
-
-      breakEvenUnits = 0;
-      breakEvenRevenue = 0;
-
-    }
-
-
-    /*
-      11. السعر المستهدف
-      هنا نريد صافي هامش ربح مستهدف
-      مع احتساب التكاليف الثابتة وتوزيعها
-      على عدد الوحدات.
-    */
-
-    let targetPrice = 0;
-
-    if (
-      targetMargin >= 0 &&
-      targetMargin < 100 &&
-      units > 0
-    ) {
-
-      const totalCostPerUnit =
-        costPerUnit + (fixedCosts / units);
-
-      targetPrice =
-        totalCostPerUnit /
-        (1 - targetMargin / 100);
-
-    }
-
-
-    /*
-      عرض النتائج
-    */
-
-    document.getElementById("costPerUnit").textContent =
-      formatMoney(costPerUnit, currency);
-
-    document.getElementById("contributionPerUnit").textContent =
-      formatMoney(contributionPerUnit, currency);
-
-    document.getElementById("profitPerUnit").textContent =
-      formatMoney(profitPerUnit, currency);
-
-    document.getElementById("revenue").textContent =
-      formatMoney(revenue, currency);
-
-    document.getElementById("totalCosts").textContent =
-      formatMoney(totalCosts, currency);
-
-    document.getElementById("netProfit").textContent =
-      formatMoney(netProfit, currency);
-
-    document.getElementById("margin").textContent =
-      margin.toFixed(2) + "%";
-
-    document.getElementById("roi").textContent =
-      roi.toFixed(2) + "%";
-
-
-    /*
-      التقييم التجاري
-    */
-
-    const status = document.getElementById("status");
-    const analysisText = document.getElementById("analysisText");
-
-    if (sellingPrice <= 0) {
-
-      status.textContent = "⚪ أدخل سعر البيع";
-      analysisText.textContent =
-        "أدخل سعر البيع وباقي البيانات للحصول على التحليل.";
-
-    } else if (contributionPerUnit <= 0) {
-
-      status.textContent = "🔴 المنتج خاسر";
-      analysisText.textContent =
-        "سعر البيع لا يغطي التكلفة المتغيرة للقطعة. يجب خفض التكلفة أو رفع سعر البيع.";
-
-    } else if (netProfit < 0) {
-
-      status.textContent = "🔴 خاسر حاليًا";
-      analysisText.textContent =
-        "المنتج يحقق مساهمة إيجابية، لكنه لا يغطي التكاليف الثابتة ضمن الكمية الحالية.";
-
-    } else if (margin < 15) {
-
-      status.textContent = "🟡 مربح بهامش ضعيف";
-      analysisText.textContent =
-        "المنتج مربح، لكن هامش الربح منخفض ويحتاج إلى تحسين التكاليف أو السعر.";
-
-    } else if (margin < targetMargin) {
-
-      status.textContent = "🟡 مربح ويحتاج تحسين";
-      analysisText.textContent =
-        "المنتج مربح، لكن هامش الربح الحالي أقل من الهامش المستهدف. تحسين سعر الشراء أو الشحن أو الإعلان قد يرفع الربحية.";
-
-    } else {
-
-      status.textContent = "🟢 منتج مربح بقوة";
-      analysisText.textContent =
-        "المنتج يحقق هامش ربح جيد ويتجاوز الهامش المستهدف.";
-
-    }
-
-
-    /*
-      السعر المستهدف
-    */
-
-    document.getElementById("targetMarginResult").textContent =
-      targetMargin.toFixed(2) + "%";
-
-    document.getElementById("targetPrice").textContent =
-      formatMoney(targetPrice, currency);
-
-
-    const targetMessage =
-      document.getElementById("targetMessage");
-
-
-    if (targetPrice <= 0) {
-
-      targetMessage.textContent =
-        "أدخل عدد الوحدات والتكاليف والهامش المستهدف لحساب السعر المطلوب.";
-
-    } else if (sellingPrice >= targetPrice) {
-
-      targetMessage.textContent =
-        "✅ سعر البيع الحالي يحقق الهامش الصافي المستهدف أو يتجاوزه.";
-
-    } else {
-
-      const difference =
-        targetPrice - sellingPrice;
-
-      targetMessage.textContent =
-        "⚠️ السعر الحالي أقل من السعر المطلوب لتحقيق الهامش الصافي المستهدف بمقدار " +
-        formatMoney(difference, currency) + ".";
-
-    }
-
-
-    /*
-      نقطة التعادل
-    */
-
-    document.getElementById("breakEvenUnits").textContent =
-      breakEvenUnits + " قطعة";
-
-    document.getElementById("breakEvenRevenue").textContent =
-      formatMoney(breakEvenRevenue, currency);
-
-
-    const breakEvenMessage =
-      document.getElementById("breakEvenMessage");
-
-
-    if (fixedCosts === 0) {
-
-      breakEvenMessage.textContent =
-        "لا توجد تكاليف ثابتة، لذلك لا توجد نقطة تعادل مرتبطة بالتكاليف الثابتة.";
-
-    } else if (contributionPerUnit <= 0) {
-
-      breakEvenMessage.textContent =
-        "❌ لا يمكن الوصول إلى نقطة التعادل لأن هامش المساهمة للقطعة غير موجب.";
-
-    } else {
-
-      breakEvenMessage.textContent =
-        "تحتاج إلى بيع حوالي " +
-        breakEvenUnits +
-        " قطعة للوصول إلى نقطة التعادل.";
-
-    }
-
-
-    /*
-      حفظ آخر نتيجة مؤقتًا
-    */
-
-    window.currentCalculation = {
-      productName,
-      currency,
-      sellingPrice,
-      purchasePrice,
-      shipping,
-      packaging,
-      adCost,
-      units,
-      fixedCosts,
-      targetMargin,
-      costPerUnit,
-      contributionPerUnit,
-      profitPerUnit,
-      revenue,
-      totalCosts,
-      netProfit,
-      margin,
-      roi,
-      targetPrice,
-      breakEvenUnits,
-      breakEvenRevenue
-    };
-
-  }
-
-
-  /*
-    حفظ المنتج
-  */
-
-  function saveProduct() {
-
-    calculateProfit();
-
-    const data =
-      window.currentCalculation;
-
-    if (!data) return;
-
-    const products =
-      JSON.parse(
-        localStorage.getItem("mTradeProducts") || "[]"
-      );
-
-    products.push({
-      ...data,
-      id: Date.now()
-    });
-
-    localStorage.setItem(
-      "mTradeProducts",
-      JSON.stringify(products)
-    );
-
-    renderSavedProducts();
-
-    alert("تم حفظ المنتج بنجاح ✅");
-  }
-
-
-  /*
-    عرض المنتجات المحفوظة
-  */
-
-  function renderSavedProducts() {
-
-    const container =
-      document.getElementById("savedProducts");
-
-    const products =
-      JSON.parse(
-        localStorage.getItem("mTradeProducts") || "[]"
-      );
-
-    if (products.length === 0) {
-
-      container.innerHTML =
-        '<div class="empty">لا توجد منتجات محفوظة.</div>';
-
-      return;
-    }
-
-
-    container.innerHTML =
-      products
-        .map(product => {
-
-          return `
-            <div class="saved-product">
-
-              <div class="saved-product-header">
-
-                <div>
-                  <strong>${escapeHTML(product.productName)}</strong>
-                  <br>
-                  <small>
-                    سعر البيع:
-                    ${formatMoney(product.sellingPrice, product.currency)}
-                  </small>
-                </div>
-
-                <div class="saved-actions">
-
-                  <button
-                    onclick="loadProduct(${product.id})">
-                    فتح
-                  </button>
-
-                  <button
-                    class="danger"
-                    onclick="deleteProduct(${product.id})">
-                    حذف
-                  </button>
-
-                </div>
-
-              </div>
-
-              <small>
-                صافي الربح:
-                ${formatMoney(product.netProfit, product.currency)}
-                —
-                هامش:
-                ${product.margin.toFixed(2)}%
-              </small>
-
+      <div class="version-badge">V1.3.1</div>
+    </header>
+
+    <main>
+
+      <!-- Calculator -->
+      <section class="card">
+        <div class="section-header">
+          <div>
+            <h2>حاسبة أرباح المنتج</h2>
+            <p>أدخل بيانات المنتج للحصول على تحليل مالي وتجاري.</p>
+          </div>
+        </div>
+
+        <form id="calculatorForm">
+
+          <div class="form-grid">
+
+            <div class="form-group full-width">
+              <label for="productName">اسم المنتج</label>
+              <input
+                type="text"
+                id="productName"
+                placeholder="مثال: ساعة ذكية"
+                autocomplete="off"
+              >
             </div>
-          `;
 
-        })
-        .join("");
+            <div class="form-group">
+              <label for="currency">العملة</label>
+              <select id="currency">
+                <option value="JOD">دينار أردني (JOD)</option>
+                <option value="USD">دولار أمريكي (USD)</option>
+                <option value="SAR">ريال سعودي (SAR)</option>
+                <option value="AED">درهم إماراتي (AED)</option>
+                <option value="EGP">جنيه مصري (EGP)</option>
+              </select>
+            </div>
 
-  }
+            <div class="form-group">
+              <label for="sellingPrice">سعر البيع / قطعة</label>
+              <input
+                type="number"
+                id="sellingPrice"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+              >
+            </div>
 
+            <div class="form-group">
+              <label for="purchasePrice">سعر الشراء / قطعة</label>
+              <input
+                type="number"
+                id="purchasePrice"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+              >
+            </div>
 
-  /*
-    تحميل منتج
-  */
+            <div class="form-group">
+              <label for="shipping">الشحن / قطعة</label>
+              <input
+                type="number"
+                id="shipping"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+              >
+            </div>
 
-  function loadProduct(id) {
+            <div class="form-group">
+              <label for="packaging">التغليف / قطعة</label>
+              <input
+                type="number"
+                id="packaging"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+              >
+            </div>
 
-    const products =
-      JSON.parse(
-        localStorage.getItem("mTradeProducts") || "[]"
-      );
+            <div class="form-group">
+              <label for="adCost">الإعلان / قطعة</label>
+              <input
+                type="number"
+                id="adCost"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+              >
+            </div>
 
-    const product =
-      products.find(p => p.id === id);
+            <div class="form-group">
+              <label for="units">عدد الوحدات</label>
+              <input
+                type="number"
+                id="units"
+                min="1"
+                step="1"
+                placeholder="100"
+              >
+            </div>
 
-    if (!product) return;
+            <div class="form-group">
+              <label for="fixedCosts">التكاليف الثابتة</label>
+              <input
+                type="number"
+                id="fixedCosts"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+              >
+            </div>
 
+            <div class="form-group">
+              <label for="targetMargin">هامش الربح المستهدف %</label>
+              <input
+                type="number"
+                id="targetMargin"
+                min="0"
+                max="99.99"
+                step="0.01"
+                placeholder="30"
+              >
+            </div>
 
-    document.getElementById("productName").value =
-      product.productName;
+          </div>
 
-    document.getElementById("currency").value =
-      product.currency;
+          <div id="message" class="message hidden"></div>
 
-    document.getElementById("sellingPrice").value =
-      product.sellingPrice;
+          <div class="actions">
+            <button type="button" id="calculateBtn" class="btn btn-primary">
+              حساب الأرباح
+            </button>
 
-    document.getElementById("purchasePrice").value =
-      product.purchasePrice;
+            <button type="button" id="saveBtn" class="btn btn-secondary">
+              حفظ المنتج
+            </button>
 
-    document.getElementById("shipping").value =
-      product.shipping;
+            <button type="button" id="clearBtn" class="btn btn-danger-outline">
+              مسح
+            </button>
+          </div>
 
-    document.getElementById("packaging").value =
-      product.packaging;
+        </form>
+      </section>
 
-    document.getElementById("adCost").value =
-      product.adCost;
+      <!-- Financial Results -->
+      <section id="resultsSection" class="card hidden">
+        <div class="section-header">
+          <div>
+            <h2>النتائج المالية</h2>
+            <p>ملخص الأداء المالي للمنتج.</p>
+          </div>
+        </div>
 
-    document.getElementById("units").value =
-      product.units;
+        <div class="results-grid">
 
-    document.getElementById("fixedCosts").value =
-      product.fixedCosts;
+          <div class="result-box">
+            <span class="result-label">التكلفة المتغيرة / قطعة</span>
+            <strong id="variableCostPerUnit">0.00</strong>
+          </div>
 
-    document.getElementById("targetMargin").value =
-      product.targetMargin;
+          <div class="result-box">
+            <span class="result-label">المساهمة / قطعة</span>
+            <strong id="contributionPerUnit">0.00</strong>
+          </div>
 
-    calculateProfit();
+          <div class="result-box">
+            <span class="result-label">صافي الربح / قطعة</span>
+            <strong id="netProfitPerUnit">0.00</strong>
+          </div>
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+          <div class="result-box">
+            <span class="result-label">إجمالي الإيرادات</span>
+            <strong id="totalRevenue">0.00</strong>
+          </div>
 
-  }
+          <div class="result-box">
+            <span class="result-label">إجمالي التكاليف</span>
+            <strong id="totalCosts">0.00</strong>
+          </div>
 
+          <div class="result-box highlight">
+            <span class="result-label">صافي الربح</span>
+            <strong id="netProfit">0.00</strong>
+          </div>
 
-  /*
-    حذف منتج
-  */
+          <div class="result-box">
+            <span class="result-label">هامش الربح</span>
+            <strong id="profitMargin">0.00%</strong>
+          </div>
 
-  function deleteProduct(id) {
+          <div class="result-box">
+            <span class="result-label">ROI</span>
+            <strong id="roi">0.00%</strong>
+          </div>
 
-    const products =
-      JSON.parse(
-        localStorage.getItem("mTradeProducts") || "[]"
-      );
+        </div>
+      </section>
 
-    const filtered =
-      products.filter(p => p.id !== id);
+      <!-- Commercial Analysis -->
+      <section id="analysisSection" class="card hidden">
+        <div class="section-header">
+          <div>
+            <h2>التقييم التجاري</h2>
+            <p>قراءة سريعة لجودة الصفقة.</p>
+          </div>
+        </div>
 
-    localStorage.setItem(
-      "mTradeProducts",
-      JSON.stringify(filtered)
-    );
+        <div class="evaluation-card">
+          <div class="evaluation-main">
+            <span class="evaluation-label">التقييم</span>
+            <strong id="commercialEvaluation">—</strong>
+          </div>
 
-    renderSavedProducts();
+          <div class="evaluation-stats">
 
-  }
+            <div>
+              <span>الحالة</span>
+              <strong id="evaluationStatus">—</strong>
+            </div>
 
+            <div>
+              <span>الربح</span>
+              <strong id="evaluationProfit">0.00</strong>
+            </div>
 
-  /*
-    مسح الحاسبة
-  */
+            <div>
+              <span>الهامش</span>
+              <strong id="evaluationMargin">0.00%</strong>
+            </div>
 
-  function clearCalculator() {
+            <div>
+              <span>ROI</span>
+              <strong id="evaluationROI">0.00%</strong>
+            </div>
 
-    document.getElementById("productName").value = "";
+          </div>
+        </div>
+      </section>
 
-    document.getElementById("sellingPrice").value = 0;
-    document.getElementById("purchasePrice").value = 0;
-    document.getElementById("shipping").value = 0;
-    document.getElementById("packaging").value = 0;
-    document.getElementById("adCost").value = 0;
-    document.getElementById("units").value = 1;
-    document.getElementById("fixedCosts").value = 0;
-    document.getElementById("targetMargin").value = 30;
+      <!-- Target Price -->
+      <section id="targetSection" class="card hidden">
+        <div class="section-header">
+          <div>
+            <h2>السعر المستهدف</h2>
+            <p>السعر المطلوب للوصول إلى هامش الربح المحدد.</p>
+          </div>
+        </div>
 
-    calculateProfit();
+        <div class="target-price-box">
+          <span>السعر المستهدف / قطعة</span>
+          <strong id="targetPrice">0.00</strong>
+        </div>
 
-  }
+        <p id="targetMessage" class="info-text"></p>
+      </section>
 
+      <!-- Break Even -->
+      <section id="breakEvenSection" class="card hidden">
+        <div class="section-header">
+          <div>
+            <h2>نقطة التعادل</h2>
+            <p>الحد الأدنى من الوحدات اللازمة لتغطية التكاليف الثابتة.</p>
+          </div>
+        </div>
 
-  /*
-    حماية النصوص من HTML
-  */
+        <div class="results-grid two-columns">
 
-  function escapeHTML(value) {
+          <div class="result-box">
+            <span class="result-label">وحدات التعادل</span>
+            <strong id="breakEvenUnits">0</strong>
+          </div>
 
-    return String(value)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+          <div class="result-box">
+            <span class="result-label">إيرادات التعادل</span>
+            <strong id="breakEvenRevenue">0.00</strong>
+          </div>
 
-  }
+        </div>
 
+        <p id="breakEvenMessage" class="info-text"></p>
+      </section>
 
-  /*
-    تشغيل أولي
-  */
+      <!-- Saved Products -->
+      <section class="card">
+        <div class="section-header">
+          <div>
+            <h2>المنتجات المحفوظة</h2>
+            <p>الوصول السريع إلى المنتجات التي قمت بحفظها.</p>
+          </div>
+        </div>
 
-  renderSavedProducts();
+        <div id="savedProducts" class="saved-products">
+          <div class="empty-state">
+            لا توجد منتجات محفوظة حتى الآن.
+          </div>
+        </div>
+      </section>
 
-</script>
+    </main>
+
+    <footer class="app-footer">
+      <p>M-Trade Tools — أدوات التاجر الذكي</p>
+      <span>V1.3.1</span>
+    </footer>
+
+  </div>
+
+  <script src="js/calculator.js"></script>
+  <script src="js/analysis.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
 
 </body>
-  </html>
+</html>
+```0
