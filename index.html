@@ -53,7 +53,6 @@
         .logo {
             font-size: 28px;
             font-weight: 800;
-            letter-spacing: -0.5px;
         }
 
         .logo span {
@@ -71,12 +70,11 @@
             border: 1px solid var(--border);
             border-radius: 14px;
             padding: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,.2);
         }
 
         .section-title {
             font-size: 18px;
-            font-weight: 700;
             margin: 0 0 18px;
         }
 
@@ -87,7 +85,6 @@
         label {
             display: block;
             margin-bottom: 7px;
-            color: var(--text);
             font-size: 14px;
             font-weight: 600;
         }
@@ -103,17 +100,11 @@
             padding: 0 12px;
             font-size: 15px;
             outline: none;
-            transition: 0.2s;
         }
 
         input:focus,
         select:focus {
             border-color: var(--blue);
-            box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.12);
-        }
-
-        input::placeholder {
-            color: #6e7681;
         }
 
         .row {
@@ -131,7 +122,6 @@
         button {
             width: 100%;
             height: 48px;
-            margin-top: 8px;
             border: none;
             border-radius: 9px;
             background: var(--green);
@@ -139,26 +129,28 @@
             font-size: 16px;
             font-weight: 700;
             cursor: pointer;
-            transition: 0.2s;
+            margin-top: 8px;
         }
 
         button:hover {
             background: var(--green-hover);
         }
 
-        button:active {
-            transform: scale(0.99);
-        }
-
         .secondary-button {
             background: transparent;
             border: 1px solid var(--border);
-            color: var(--text);
-            margin-top: 10px;
         }
 
         .secondary-button:hover {
             background: #21262d;
+        }
+
+        .save-button {
+            background: #1f6feb;
+        }
+
+        .save-button:hover {
+            background: #388bfd;
         }
 
         .results {
@@ -176,14 +168,9 @@
         .result-item {
             display: flex;
             justify-content: space-between;
-            align-items: center;
             padding: 11px 0;
-            border-bottom: 1px solid rgba(48, 54, 61, 0.6);
+            border-bottom: 1px solid rgba(48,54,61,.6);
             font-size: 14px;
-        }
-
-        .result-item:last-child {
-            border-bottom: none;
         }
 
         .result-label {
@@ -214,14 +201,102 @@
             color: var(--red);
         }
 
+        /* المنتجات المحفوظة */
+
+        .saved-products {
+            margin-top: 20px;
+        }
+
+        .product-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+        }
+
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .product-name {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .product-date {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        .product-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .stat {
+            background: var(--card-2);
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .stat-label {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .product-actions button {
+            height: 40px;
+            margin: 0;
+            font-size: 13px;
+        }
+
+        .delete-button {
+            background: #da3633;
+        }
+
+        .delete-button:hover {
+            background: #f85149;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: var(--muted);
+            border: 1px dashed var(--border);
+            border-radius: 12px;
+            padding: 25px 15px;
+            font-size: 14px;
+        }
+
         .footer {
             text-align: center;
             color: var(--muted);
             font-size: 12px;
             margin-top: 18px;
+            padding-bottom: 20px;
         }
 
         @media (max-width: 480px) {
+
             body {
                 padding: 12px;
             }
@@ -243,27 +318,48 @@
 <div class="container">
 
     <header class="header">
-        <div class="logo">M-Trade <span>Tools</span></div>
-        <p class="subtitle">أدوات بسيطة وذكية للتاجر</p>
+        <div class="logo">
+            M-Trade <span>Tools</span>
+        </div>
+
+        <p class="subtitle">
+            أدوات بسيطة وذكية للتاجر
+        </p>
     </header>
+
+
+    <!-- الحاسبة -->
 
     <main class="card">
 
-        <h2 class="section-title">حاسبة ربح المنتج</h2>
+        <h2 class="section-title">
+            حاسبة ربح المنتج
+        </h2>
+
 
         <div class="form-group">
-            <label for="productName">اسم المنتج</label>
+
+            <label for="productName">
+                اسم المنتج
+            </label>
+
             <input
                 type="text"
                 id="productName"
                 placeholder="مثال: ساعة ذكية"
             >
+
         </div>
+
 
         <div class="currency-row">
 
             <div class="form-group">
-                <label for="sellingPrice">سعر البيع</label>
+
+                <label for="sellingPrice">
+                    سعر البيع
+                </label>
+
                 <input
                     type="number"
                     id="sellingPrice"
@@ -271,25 +367,53 @@
                     min="0"
                     step="any"
                 >
+
             </div>
 
+
             <div class="form-group">
-                <label for="currency">العملة</label>
+
+                <label for="currency">
+                    العملة
+                </label>
+
                 <select id="currency">
-                    <option value="د.أ">دينار أردني</option>
-                    <option value="$">دولار</option>
-                    <option value="ر.س">ريال سعودي</option>
-                    <option value="د.إ">درهم إماراتي</option>
-                    <option value="ج.م">جنيه مصري</option>
+
+                    <option value="د.أ">
+                        دينار أردني
+                    </option>
+
+                    <option value="$">
+                        دولار
+                    </option>
+
+                    <option value="ر.س">
+                        ريال سعودي
+                    </option>
+
+                    <option value="د.إ">
+                        درهم إماراتي
+                    </option>
+
+                    <option value="ج.م">
+                        جنيه مصري
+                    </option>
+
                 </select>
+
             </div>
 
         </div>
 
+
         <div class="row">
 
             <div class="form-group">
-                <label for="purchasePrice">سعر الشراء / قطعة</label>
+
+                <label for="purchasePrice">
+                    سعر الشراء / قطعة
+                </label>
+
                 <input
                     type="number"
                     id="purchasePrice"
@@ -297,10 +421,16 @@
                     min="0"
                     step="any"
                 >
+
             </div>
 
+
             <div class="form-group">
-                <label for="shippingCost">الشحن / قطعة</label>
+
+                <label for="shippingCost">
+                    الشحن / قطعة
+                </label>
+
                 <input
                     type="number"
                     id="shippingCost"
@@ -308,14 +438,20 @@
                     min="0"
                     step="any"
                 >
+
             </div>
 
         </div>
 
+
         <div class="row">
 
             <div class="form-group">
-                <label for="packagingCost">التغليف / قطعة</label>
+
+                <label for="packagingCost">
+                    التغليف / قطعة
+                </label>
+
                 <input
                     type="number"
                     id="packagingCost"
@@ -323,10 +459,16 @@
                     min="0"
                     step="any"
                 >
+
             </div>
 
+
             <div class="form-group">
-                <label for="adCost">الإعلان / قطعة</label>
+
+                <label for="adCost">
+                    الإعلان / قطعة
+                </label>
+
                 <input
                     type="number"
                     id="adCost"
@@ -334,12 +476,18 @@
                     min="0"
                     step="any"
                 >
+
             </div>
 
         </div>
 
+
         <div class="form-group">
-            <label for="units">عدد الوحدات</label>
+
+            <label for="units">
+                عدد الوحدات
+            </label>
+
             <input
                 type="number"
                 id="units"
@@ -347,11 +495,22 @@
                 min="1"
                 step="1"
             >
+
         </div>
+
 
         <button onclick="calculateProfit()">
             احسب الأرباح
         </button>
+
+
+        <button
+            class="save-button"
+            onclick="saveProduct()"
+        >
+            💾 حفظ المنتج
+        </button>
+
 
         <button
             class="secondary-button"
@@ -360,13 +519,18 @@
             مسح البيانات
         </button>
 
+
+        <!-- النتائج -->
+
         <section class="results">
 
             <div class="results-title">
                 النتائج
             </div>
 
+
             <div class="result-item">
+
                 <span class="result-label">
                     تكلفة القطعة
                 </span>
@@ -377,9 +541,12 @@
                 >
                     0.00
                 </span>
+
             </div>
 
+
             <div class="result-item">
+
                 <span class="result-label">
                     ربح القطعة
                 </span>
@@ -390,9 +557,12 @@
                 >
                     0.00
                 </span>
+
             </div>
 
+
             <div class="result-item">
+
                 <span class="result-label">
                     إجمالي الإيرادات
                 </span>
@@ -403,9 +573,12 @@
                 >
                     0.00
                 </span>
+
             </div>
 
+
             <div class="result-item">
+
                 <span class="result-label">
                     إجمالي التكاليف
                 </span>
@@ -416,7 +589,9 @@
                 >
                     0.00
                 </span>
+
             </div>
+
 
             <div class="profit-box">
 
@@ -434,6 +609,7 @@
                     </span>
 
                 </div>
+
 
                 <div class="result-item">
 
@@ -456,37 +632,80 @@
 
     </main>
 
+
+    <!-- المنتجات المحفوظة -->
+
+    <section class="saved-products">
+
+        <div class="card">
+
+            <h2 class="section-title">
+                📦 منتجاتي
+            </h2>
+
+            <div id="productsList"></div>
+
+        </div>
+
+    </section>
+
+
     <footer class="footer">
-        M-Trade Tools — الإصدار V1
+        M-Trade Tools — الإصدار V1.1
     </footer>
 
 </div>
 
+
 <script>
 
+/* =========================
+   أدوات مساعدة
+========================= */
+
 function getNumber(id) {
-    return parseFloat(document.getElementById(id).value) || 0;
+
+    return parseFloat(
+        document.getElementById(id).value
+    ) || 0;
+
 }
 
+
 function formatMoney(value) {
+
     return value.toFixed(2);
+
 }
+
+
+/* =========================
+   حساب الأرباح
+========================= */
 
 function calculateProfit() {
 
-    const purchase = getNumber("purchasePrice");
-    const shipping = getNumber("shippingCost");
-    const packaging = getNumber("packagingCost");
-    const ad = getNumber("adCost");
-    const selling = getNumber("sellingPrice");
-    const units = getNumber("units");
+    const purchase =
+        getNumber("purchasePrice");
+
+    const shipping =
+        getNumber("shippingCost");
+
+    const packaging =
+        getNumber("packagingCost");
+
+    const ad =
+        getNumber("adCost");
+
+    const selling =
+        getNumber("sellingPrice");
+
+    const units =
+        getNumber("units");
 
     const currency =
         document.getElementById("currency").value;
 
-    if (units <= 0) {
-        return;
-    }
 
     const costPerUnit =
         purchase +
@@ -494,47 +713,74 @@ function calculateProfit() {
         packaging +
         ad;
 
+
     const profitPerUnit =
         selling -
         costPerUnit;
 
+
     const totalCost =
         costPerUnit * units;
+
 
     const totalRevenue =
         selling * units;
 
+
     const netProfit =
         totalRevenue -
         totalCost;
+
 
     const margin =
         totalRevenue > 0
             ? (netProfit / totalRevenue) * 100
             : 0;
 
+
     document.getElementById("costPerUnit").innerText =
-        formatMoney(costPerUnit) + " " + currency;
+        formatMoney(costPerUnit) +
+        " " +
+        currency;
+
 
     document.getElementById("profitPerUnit").innerText =
-        formatMoney(profitPerUnit) + " " + currency;
+        formatMoney(profitPerUnit) +
+        " " +
+        currency;
+
 
     document.getElementById("revenueResult").innerText =
-        formatMoney(totalRevenue) + " " + currency;
+        formatMoney(totalRevenue) +
+        " " +
+        currency;
+
 
     document.getElementById("costResult").innerText =
-        formatMoney(totalCost) + " " + currency;
+        formatMoney(totalCost) +
+        " " +
+        currency;
+
 
     document.getElementById("profitResult").innerText =
-        formatMoney(netProfit) + " " + currency;
+        formatMoney(netProfit) +
+        " " +
+        currency;
+
 
     document.getElementById("marginResult").innerText =
-        margin.toFixed(2) + "%";
+        margin.toFixed(2) +
+        "%";
+
 
     const profitElements = [
+
         document.getElementById("profitResult"),
+
         document.getElementById("profitPerUnit")
+
     ];
+
 
     profitElements.forEach(element => {
 
@@ -543,46 +789,473 @@ function calculateProfit() {
             "profit-negative"
         );
 
+
         if (netProfit > 0) {
-            element.classList.add("profit-positive");
+
+            element.classList.add(
+                "profit-positive"
+            );
+
         } else if (netProfit < 0) {
-            element.classList.add("profit-negative");
+
+            element.classList.add(
+                "profit-negative"
+            );
+
         }
 
     });
+
+
+    return {
+
+        productName:
+            document.getElementById("productName").value.trim(),
+
+        purchase,
+        shipping,
+        packaging,
+        ad,
+        selling,
+        units,
+        currency,
+
+        costPerUnit,
+        profitPerUnit,
+        totalCost,
+        totalRevenue,
+        netProfit,
+        margin
+
+    };
+
 }
+
+
+/* =========================
+   حفظ المنتج
+========================= */
+
+function saveProduct() {
+
+    const product =
+        calculateProfit();
+
+
+    if (!product.productName) {
+
+        alert(
+            "يرجى إدخال اسم المنتج أولاً."
+        );
+
+        return;
+
+    }
+
+
+    if (product.selling <= 0) {
+
+        alert(
+            "يرجى إدخال سعر بيع صحيح."
+        );
+
+        return;
+
+    }
+
+
+    let products =
+        JSON.parse(
+            localStorage.getItem(
+                "mTradeProducts"
+            )
+        ) || [];
+
+
+    product.id =
+        Date.now();
+
+
+    product.date =
+        new Date().toLocaleDateString(
+            "ar-JO"
+        );
+
+
+    products.unshift(product);
+
+
+    localStorage.setItem(
+        "mTradeProducts",
+        JSON.stringify(products)
+    );
+
+
+    renderProducts();
+
+
+    alert(
+        "تم حفظ المنتج بنجاح ✅"
+    );
+
+}
+
+
+/* =========================
+   عرض المنتجات
+========================= */
+
+function renderProducts() {
+
+    const container =
+        document.getElementById(
+            "productsList"
+        );
+
+
+    let products =
+        JSON.parse(
+            localStorage.getItem(
+                "mTradeProducts"
+            )
+        ) || [];
+
+
+    if (products.length === 0) {
+
+        container.innerHTML = `
+            <div class="empty-state">
+                لا توجد منتجات محفوظة حتى الآن.
+                <br>
+                احسب منتجًا ثم اضغط "حفظ المنتج".
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        products.map(product => `
+
+            <div class="product-card">
+
+                <div class="product-header">
+
+                    <div>
+
+                        <div class="product-name">
+                            ${escapeHTML(product.productName)}
+                        </div>
+
+                        <div class="product-date">
+                            ${product.date}
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="product-stats">
+
+                    <div class="stat">
+
+                        <span class="stat-label">
+                            سعر البيع
+                        </span>
+
+                        <span class="stat-value">
+                            ${formatMoney(product.selling)}
+                            ${product.currency}
+                        </span>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <span class="stat-label">
+                            ربح القطعة
+                        </span>
+
+                        <span class="stat-value profit-positive">
+                            ${formatMoney(product.profitPerUnit)}
+                            ${product.currency}
+                        </span>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <span class="stat-label">
+                            صافي الربح
+                        </span>
+
+                        <span class="stat-value profit-positive">
+                            ${formatMoney(product.netProfit)}
+                            ${product.currency}
+                        </span>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <span class="stat-label">
+                            هامش الربح
+                        </span>
+
+                        <span class="stat-value">
+                            ${product.margin.toFixed(2)}%
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="product-actions">
+
+                    <button
+                        onclick="loadProduct(${product.id})"
+                    >
+                        فتح
+                    </button>
+
+                    <button
+                        class="delete-button"
+                        onclick="deleteProduct(${product.id})"
+                    >
+                        حذف
+                    </button>
+
+                </div>
+
+            </div>
+
+        `).join("");
+
+}
+
+
+/* =========================
+   فتح منتج محفوظ
+========================= */
+
+function loadProduct(id) {
+
+    const products =
+        JSON.parse(
+            localStorage.getItem(
+                "mTradeProducts"
+            )
+        ) || [];
+
+
+    const product =
+        products.find(
+            item => item.id === id
+        );
+
+
+    if (!product) {
+        return;
+    }
+
+
+    document.getElementById(
+        "productName"
+    ).value = product.productName;
+
+
+    document.getElementById(
+        "purchasePrice"
+    ).value = product.purchase;
+
+
+    document.getElementById(
+        "shippingCost"
+    ).value = product.shipping;
+
+
+    document.getElementById(
+        "packagingCost"
+    ).value = product.packaging;
+
+
+    document.getElementById(
+        "adCost"
+    ).value = product.ad;
+
+
+    document.getElementById(
+        "sellingPrice"
+    ).value = product.selling;
+
+
+    document.getElementById(
+        "units"
+    ).value = product.units;
+
+
+    document.getElementById(
+        "currency"
+    ).value = product.currency;
+
+
+    calculateProfit();
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =========================
+   حذف منتج
+========================= */
+
+function deleteProduct(id) {
+
+    const confirmed =
+        confirm(
+            "هل تريد حذف هذا المنتج؟"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    let products =
+        JSON.parse(
+            localStorage.getItem(
+                "mTradeProducts"
+            )
+        ) || [];
+
+
+    products =
+        products.filter(
+            product =>
+                product.id !== id
+        );
+
+
+    localStorage.setItem(
+        "mTradeProducts",
+        JSON.stringify(products)
+    );
+
+
+    renderProducts();
+
+}
+
+
+/* =========================
+   مسح الحاسبة
+========================= */
 
 function clearCalculator() {
 
-    document.getElementById("productName").value = "";
-    document.getElementById("purchasePrice").value = "";
-    document.getElementById("shippingCost").value = "";
-    document.getElementById("packagingCost").value = "";
-    document.getElementById("adCost").value = "";
-    document.getElementById("sellingPrice").value = "";
-    document.getElementById("units").value = "1";
+    document.getElementById(
+        "productName"
+    ).value = "";
 
-    document.getElementById("costPerUnit").innerText = "0.00";
-    document.getElementById("profitPerUnit").innerText = "0.00";
-    document.getElementById("revenueResult").innerText = "0.00";
-    document.getElementById("costResult").innerText = "0.00";
-    document.getElementById("profitResult").innerText = "0.00";
-    document.getElementById("marginResult").innerText = "0%";
 
-    document.getElementById("profitResult")
-        .classList.remove(
-            "profit-positive",
-            "profit-negative"
-        );
+    document.getElementById(
+        "purchasePrice"
+    ).value = "";
 
-    document.getElementById("profitPerUnit")
-        .classList.remove(
-            "profit-positive",
-            "profit-negative"
-        );
+
+    document.getElementById(
+        "shippingCost"
+    ).value = "";
+
+
+    document.getElementById(
+        "packagingCost"
+    ).value = "";
+
+
+    document.getElementById(
+        "adCost"
+    ).value = "";
+
+
+    document.getElementById(
+        "sellingPrice"
+    ).value = "";
+
+
+    document.getElementById(
+        "units"
+    ).value = "1";
+
+
+    document.getElementById(
+        "costPerUnit"
+    ).innerText = "0.00";
+
+
+    document.getElementById(
+        "profitPerUnit"
+    ).innerText = "0.00";
+
+
+    document.getElementById(
+        "revenueResult"
+    ).innerText = "0.00";
+
+
+    document.getElementById(
+        "costResult"
+    ).innerText = "0.00";
+
+
+    document.getElementById(
+        "profitResult"
+    ).innerText = "0.00";
+
+
+    document.getElementById(
+        "marginResult"
+    ).innerText = "0%";
+
 }
+
+
+/* =========================
+   حماية عرض اسم المنتج
+========================= */
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================
+   تشغيل المنتجات عند فتح الموقع
+========================= */
+
+renderProducts();
 
 </script>
 
 </body>
-  </html>
+    </html>
