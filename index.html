@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<!DOCTYPE html><html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0b1220">
-  <title>أدوات التاجر الذكي</title>
-
-  <style>
+  <title>أدوات التاجر الذكي — V1.3</title>  <style>
     * {
       box-sizing: border-box;
       margin: 0;
@@ -40,6 +37,16 @@
     header p {
       color: #94a3b8;
       font-size: 14px;
+    }
+
+    .version {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 5px 10px;
+      border-radius: 20px;
+      background: #172033;
+      color: #94a3b8;
+      font-size: 11px;
     }
 
     .card {
@@ -154,6 +161,35 @@
 
     .highlight {
       border-color: #475569;
+    }
+
+    .status-box {
+      margin-top: 14px;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 15px;
+      padding: 16px;
+    }
+
+    .status-title {
+      color: #94a3b8;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .status-value {
+      font-size: 21px;
+      font-weight: bold;
+    }
+
+    .analysis {
+      margin-top: 10px;
+      padding: 13px;
+      border-radius: 11px;
+      background: #172033;
+      color: #cbd5e1;
+      font-size: 13px;
+      line-height: 1.8;
     }
 
     .break-even {
@@ -274,179 +310,202 @@
         padding: 15px;
       }
     }
-  </style>
-</head>
-
-<body>
-
-<div class="container">
-
-  <header>
+  </style></head><body><div class="container">  <header>
     <h1>📊 أدوات التاجر الذكي</h1>
-    <p>احسب تكلفة منتجك وربحك ونقطة التعادل بدقة</p>
-  </header>
+    <p>احسب تكلفة منتجك وربحك وحلل جدواه التجارية</p>
+    <span class="version">M-Trade Tools V1.3</span>
+  </header>  <!-- Calculator -->  <div class="card"><h2>🧮 حاسبة الأرباح</h2>
 
-  <!-- Calculator -->
-  <div class="card">
+<div class="grid">
 
-    <h2>🧮 حاسبة الأرباح</h2>
-
-    <div class="grid">
-
-      <div class="full">
-        <label>اسم المنتج</label>
-        <input id="productName" type="text" placeholder="مثال: ساعة ذكية">
-      </div>
-
-      <div>
-        <label>العملة</label>
-        <select id="currency">
-          <option value="JOD">د.أ — دينار أردني</option>
-          <option value="USD">$ — دولار أمريكي</option>
-          <option value="SAR">﷼ — ريال سعودي</option>
-          <option value="AED">د.إ — درهم إماراتي</option>
-          <option value="EGP">ج.م — جنيه مصري</option>
-        </select>
-      </div>
-
-      <div>
-        <label>سعر البيع للقطعة</label>
-        <input id="sellingPrice" type="number" min="0" step="0.01" placeholder="29">
-      </div>
-
-      <div>
-        <label>سعر الشراء للقطعة</label>
-        <input id="purchasePrice" type="number" min="0" step="0.01" placeholder="6">
-      </div>
-
-      <div>
-        <label>الشحن للقطعة</label>
-        <input id="shipping" type="number" min="0" step="0.01" placeholder="6">
-      </div>
-
-      <div>
-        <label>التغليف للقطعة</label>
-        <input id="packaging" type="number" min="0" step="0.01" placeholder="2">
-      </div>
-
-      <div>
-        <label>الإعلان للقطعة</label>
-        <input id="adCost" type="number" min="0" step="0.01" placeholder="1.5">
-      </div>
-
-      <div>
-        <label>عدد الوحدات</label>
-        <input id="units" type="number" min="0" step="1" placeholder="100">
-      </div>
-
-      <div class="full">
-        <label>التكاليف الثابتة</label>
-        <input id="fixedCosts" type="number" min="0" step="0.01" placeholder="مثال: 500">
-      </div>
-
-    </div>
-
-    <div class="buttons">
-      <button class="calculate" onclick="calculateProfit()">احسب الأرباح</button>
-      <button class="save" onclick="saveProduct()">💾 حفظ المنتج</button>
-    </div>
-
-    <button class="clear" onclick="clearCalculator()">مسح البيانات</button>
-
+  <div class="full">
+    <label>اسم المنتج</label>
+    <input id="productName" type="text" placeholder="مثال: ساعة ذكية">
   </div>
 
-
-  <!-- Results -->
-  <div class="card">
-
-    <h2>📈 النتائج</h2>
-
-    <div class="results">
-
-      <div class="result">
-        <div class="title">تكلفة القطعة المتغيرة</div>
-        <div class="value" id="costPerUnit">0</div>
-      </div>
-
-      <div class="result highlight">
-        <div class="title">هامش المساهمة للقطعة</div>
-        <div class="value" id="contributionPerUnit">0</div>
-      </div>
-
-      <div class="result">
-        <div class="title">الربح للقطعة قبل الثابتة</div>
-        <div class="value" id="profitPerUnit">0</div>
-      </div>
-
-      <div class="result">
-        <div class="title">إجمالي المبيعات</div>
-        <div class="value" id="revenue">0</div>
-      </div>
-
-      <div class="result">
-        <div class="title">إجمالي التكاليف</div>
-        <div class="value" id="totalCosts">0</div>
-      </div>
-
-      <div class="result highlight">
-        <div class="title">صافي الربح</div>
-        <div class="value" id="netProfit">0</div>
-      </div>
-
-      <div class="result">
-        <div class="title">هامش الربح</div>
-        <div class="value" id="margin">0%</div>
-      </div>
-
-    </div>
-
-
-    <!-- Break Even -->
-    <div class="break-even">
-
-      <h3>⚖️ نقطة التعادل</h3>
-
-      <div class="break-grid">
-
-        <div class="result">
-          <div class="title">وحدات نقطة التعادل</div>
-          <div class="value" id="breakEvenUnits">0</div>
-        </div>
-
-        <div class="result">
-          <div class="title">مبيعات نقطة التعادل</div>
-          <div class="value" id="breakEvenRevenue">0</div>
-        </div>
-
-      </div>
-
-      <div class="message" id="breakEvenMessage">
-        أدخل البيانات واضغط "احسب الأرباح".
-      </div>
-
-    </div>
-
+  <div>
+    <label>العملة</label>
+    <select id="currency">
+      <option value="JOD">د.أ — دينار أردني</option>
+      <option value="USD">$ — دولار أمريكي</option>
+      <option value="SAR">﷼ — ريال سعودي</option>
+      <option value="AED">د.إ — درهم إماراتي</option>
+      <option value="EGP">ج.م — جنيه مصري</option>
+    </select>
   </div>
 
-
-  <!-- Saved Products -->
-  <div class="card">
-
-    <h2>📦 منتجاتي</h2>
-
-    <div id="savedProducts"></div>
-
+  <div>
+    <label>سعر البيع للقطعة</label>
+    <input id="sellingPrice" type="number" min="0" step="0.01" placeholder="29">
   </div>
 
+  <div>
+    <label>سعر الشراء للقطعة</label>
+    <input id="purchasePrice" type="number" min="0" step="0.01" placeholder="6">
+  </div>
 
-  <div class="footer">
-    أدوات التاجر الذكي — M-Trade Tools
+  <div>
+    <label>الشحن للقطعة</label>
+    <input id="shipping" type="number" min="0" step="0.01" placeholder="6">
+  </div>
+
+  <div>
+    <label>التغليف للقطعة</label>
+    <input id="packaging" type="number" min="0" step="0.01" placeholder="2">
+  </div>
+
+  <div>
+    <label>الإعلان للقطعة</label>
+    <input id="adCost" type="number" min="0" step="0.01" placeholder="1.5">
+  </div>
+
+  <div>
+    <label>عدد الوحدات</label>
+    <input id="units" type="number" min="0" step="1" placeholder="100">
+  </div>
+
+  <div>
+    <label>التكاليف الثابتة</label>
+    <input id="fixedCosts" type="number" min="0" step="0.01" placeholder="500">
+  </div>
+
+  <div>
+    <label>الهامش المستهدف %</label>
+    <input id="targetMargin" type="number" min="0" max="99.99" step="0.01" value="30">
+  </div>
+
+</div>
+
+<div class="buttons">
+  <button class="calculate" onclick="calculateProfit()">احسب وحلل</button>
+  <button class="save" onclick="saveProduct()">💾 حفظ المنتج</button>
+</div>
+
+<button class="clear" onclick="clearCalculator()">مسح البيانات</button>
+
+  </div>  <!-- Results -->  <div class="card"><h2>📈 النتائج المالية</h2>
+
+<div class="results">
+
+  <div class="result">
+    <div class="title">تكلفة القطعة المتغيرة</div>
+    <div class="value" id="costPerUnit">0</div>
+  </div>
+
+  <div class="result highlight">
+    <div class="title">هامش المساهمة للقطعة</div>
+    <div class="value" id="contributionPerUnit">0</div>
+  </div>
+
+  <div class="result">
+    <div class="title">الربح للقطعة</div>
+    <div class="value" id="profitPerUnit">0</div>
+  </div>
+
+  <div class="result">
+    <div class="title">إجمالي المبيعات</div>
+    <div class="value" id="revenue">0</div>
+  </div>
+
+  <div class="result">
+    <div class="title">إجمالي التكاليف</div>
+    <div class="value" id="totalCosts">0</div>
+  </div>
+
+  <div class="result highlight">
+    <div class="title">صافي الربح</div>
+    <div class="value" id="netProfit">0</div>
+  </div>
+
+  <div class="result">
+    <div class="title">هامش الربح</div>
+    <div class="value" id="margin">0%</div>
+  </div>
+
+  <div class="result highlight">
+    <div class="title">ROI العائد على الاستثمار</div>
+    <div class="value" id="roi">0%</div>
   </div>
 
 </div>
 
 
-<script>
+<!-- Product Status -->
+<div class="status-box">
+
+  <div class="status-title">
+    التقييم التجاري
+  </div>
+
+  <div class="status-value" id="productStatus">
+    أدخل البيانات للتحليل
+  </div>
+
+  <div class="analysis" id="smartAnalysis">
+    سيظهر هنا تحليل مختصر للمنتج بعد الحساب.
+  </div>
+
+</div>
+
+
+<!-- Target Price -->
+<div class="break-even">
+
+  <h3>🎯 السعر المستهدف</h3>
+
+  <div class="break-grid">
+
+    <div class="result">
+      <div class="title">الهامش المستهدف</div>
+      <div class="value" id="targetMarginDisplay">30%</div>
+    </div>
+
+    <div class="result">
+      <div class="title">سعر البيع المطلوب</div>
+      <div class="value" id="targetPrice">0</div>
+    </div>
+
+  </div>
+
+  <div class="message" id="targetMessage">
+    أدخل البيانات واضغط "احسب وحلل".
+  </div>
+
+</div>
+
+
+<!-- Break Even -->
+<div class="break-even">
+
+  <h3>⚖️ نقطة التعادل</h3>
+
+  <div class="break-grid">
+
+    <div class="result">
+      <div class="title">وحدات نقطة التعادل</div>
+      <div class="value" id="breakEvenUnits">0</div>
+    </div>
+
+    <div class="result">
+      <div class="title">مبيعات نقطة التعادل</div>
+      <div class="value" id="breakEvenRevenue">0</div>
+    </div>
+
+  </div>
+
+  <div class="message" id="breakEvenMessage">
+    أدخل البيانات واضغط "احسب وحلل".
+  </div>
+
+</div>
+
+  </div>  <!-- Saved Products -->  <div class="card"><h2>📦 منتجاتي</h2>
+
+<div id="savedProducts"></div>
+
+  </div>  <div class="footer">
+    أدوات التاجر الذكي — M-Trade Tools V1.3
+  </div></div><script>
 
   const currencySymbols = {
     JOD: "د.أ",
@@ -480,8 +539,10 @@
     const adCost = getNumber("adCost");
     const units = getNumber("units");
     const fixedCosts = getNumber("fixedCosts");
+    const targetMargin = getNumber("targetMargin");
 
     const currency = document.getElementById("currency").value;
+
 
     // Variable cost per unit
     const costPerUnit =
@@ -490,26 +551,32 @@
       packaging +
       adCost;
 
+
     // Contribution margin
     const contributionPerUnit =
       sellingPrice -
       costPerUnit;
 
+
     // Revenue
     const revenue =
       sellingPrice * units;
+
 
     // Total variable costs
     const totalVariableCosts =
       costPerUnit * units;
 
+
     // Total costs
     const totalCosts =
       totalVariableCosts + fixedCosts;
 
+
     // Net profit
     const netProfit =
       revenue - totalCosts;
+
 
     // Profit margin
     const margin =
@@ -517,9 +584,21 @@
         ? (netProfit / revenue) * 100
         : 0;
 
+
+    // ROI
+    const investment =
+      totalVariableCosts + fixedCosts;
+
+    const roi =
+      investment > 0
+        ? (netProfit / investment) * 100
+        : 0;
+
+
     // Break-even
     let breakEvenUnits = 0;
     let breakEvenRevenue = 0;
+
 
     if (fixedCosts > 0 && contributionPerUnit > 0) {
 
@@ -529,13 +608,22 @@
       breakEvenRevenue =
         breakEvenUnits * sellingPrice;
 
-    } else if (fixedCosts === 0 && contributionPerUnit > 0) {
-
-      breakEvenUnits = 0;
-      breakEvenRevenue = 0;
     }
 
 
+    // Target price
+    let targetPrice = 0;
+
+    if (targetMargin >= 0 && targetMargin < 100) {
+
+      targetPrice =
+        costPerUnit /
+        (1 - (targetMargin / 100));
+
+    }
+
+
+    // Display
     document.getElementById("costPerUnit").textContent =
       formatMoney(costPerUnit, currency);
 
@@ -543,7 +631,7 @@
       formatMoney(contributionPerUnit, currency);
 
     document.getElementById("profitPerUnit").textContent =
-      formatMoney(sellingPrice - costPerUnit, currency);
+      formatMoney(contributionPerUnit, currency);
 
     document.getElementById("revenue").textContent =
       formatMoney(revenue, currency);
@@ -557,7 +645,20 @@
     document.getElementById("margin").textContent =
       margin.toFixed(2) + "%";
 
+    document.getElementById("roi").textContent =
+      roi.toFixed(2) + "%";
 
+    document.getElementById("targetMarginDisplay").textContent =
+      targetMargin.toFixed(2) + "%";
+
+
+    document.getElementById("targetPrice").textContent =
+      targetPrice > 0
+        ? formatMoney(targetPrice, currency)
+        : "—";
+
+
+    // Break-even UI
     const breakEvenUnitsElement =
       document.getElementById("breakEvenUnits");
 
@@ -571,19 +672,21 @@
     if (contributionPerUnit <= 0) {
 
       breakEvenUnitsElement.textContent = "غير ممكن";
+
       breakEvenRevenueElement.textContent = "—";
 
       messageElement.textContent =
-        "⚠️ لا توجد نقطة تعادل حقيقية: تكلفة القطعة المتغيرة تساوي أو تتجاوز سعر البيع. يجب رفع سعر البيع أو خفض التكلفة.";
+        "⚠️ لا توجد نقطة تعادل حقيقية لأن تكلفة القطعة المتغيرة تساوي أو تتجاوز سعر البيع.";
 
     } else if (fixedCosts === 0) {
 
       breakEvenUnitsElement.textContent = "0";
+
       breakEvenRevenueElement.textContent =
         formatMoney(0, currency);
 
       messageElement.textContent =
-        "التكاليف الثابتة تساوي صفر، لذلك لا تحتاج إلى بيع وحدات لتغطية تكاليف ثابتة.";
+        "لا توجد تكاليف ثابتة، لذلك لا تحتاج إلى وحدات لتغطية التكاليف الثابتة.";
 
     } else {
 
@@ -594,11 +697,145 @@
         formatMoney(breakEvenRevenue, currency);
 
       messageElement.textContent =
-        "✅ تحتاج إلى بيع " +
+        "تحتاج إلى بيع " +
         breakEvenUnits.toLocaleString("en-US") +
-        " قطعة تقريبًا لتغطية التكاليف الثابتة والمتغيرة والوصول إلى نقطة التعادل.";
+        " قطعة تقريبًا للوصول إلى نقطة التعادل.";
 
     }
+
+
+    // Target price message
+    const targetMessage =
+      document.getElementById("targetMessage");
+
+
+    if (targetPrice > 0) {
+
+      if (sellingPrice >= targetPrice) {
+
+        targetMessage.textContent =
+          "✅ سعر البيع الحالي يحقق الهامش المستهدف أو يتجاوزه.";
+
+      } else {
+
+        targetMessage.textContent =
+          "⚠️ لبلوغ هامش " +
+          targetMargin.toFixed(2) +
+          "%، تحتاج إلى سعر بيع يقارب " +
+          formatMoney(targetPrice, currency) +
+          ".";
+
+      }
+
+    } else {
+
+      targetMessage.textContent =
+        "أدخل تكلفة صحيحة وهامشًا مستهدفًا أقل من 100%.";
+
+    }
+
+
+    // Smart analysis
+    updateSmartAnalysis(
+      sellingPrice,
+      costPerUnit,
+      netProfit,
+      margin,
+      roi,
+      units,
+      fixedCosts,
+      contributionPerUnit,
+      currency
+    );
+
+  }
+
+
+  function updateSmartAnalysis(
+    sellingPrice,
+    costPerUnit,
+    netProfit,
+    margin,
+    roi,
+    units,
+    fixedCosts,
+    contributionPerUnit,
+    currency
+  ) {
+
+    const statusElement =
+      document.getElementById("productStatus");
+
+    const analysisElement =
+      document.getElementById("smartAnalysis");
+
+
+    if (sellingPrice <= 0) {
+
+      statusElement.textContent =
+        "أدخل سعر البيع";
+
+      analysisElement.textContent =
+        "لا يمكن تقييم المنتج قبل إدخال سعر بيع صحيح.";
+
+      return;
+    }
+
+
+    if (contributionPerUnit <= 0) {
+
+      statusElement.textContent =
+        "🔴 المنتج خاسر";
+
+      analysisElement.textContent =
+        "تكلفة القطعة المتغيرة تساوي أو تتجاوز سعر البيع. يجب خفض التكلفة أو رفع السعر قبل التفكير في التوسع.";
+
+      return;
+    }
+
+
+    if (netProfit < 0) {
+
+      statusElement.textContent =
+        "🔴 المنتج خاسر حاليًا";
+
+      analysisElement.textContent =
+        "المنتج يحقق هامش مساهمة موجب، لكن التكاليف الثابتة تجعل النتيجة النهائية خسارة. راجع حجم المبيعات أو التكاليف الثابتة.";
+
+      return;
+    }
+
+
+    if (margin < 15) {
+
+      statusElement.textContent =
+        "🟡 مربح بهامش ضعيف";
+
+      analysisElement.textContent =
+        "المنتج مربح، لكن هامش الربح منخفض نسبيًا. أي ارتفاع في الإعلان أو الشحن قد يضغط على الربحية. ابحث عن خفض التكلفة أو تحسين سعر البيع.";
+
+      return;
+    }
+
+
+    if (margin < 30) {
+
+      statusElement.textContent =
+        "🟡 مربح ويحتاج تحسين";
+
+      analysisElement.textContent =
+        "المنتج مربح بهامش متوسط. تحسين سعر الشراء أو الإعلان قد يرفع الربحية بشكل ملحوظ.";
+
+      return;
+    }
+
+
+    statusElement.textContent =
+      "🟢 منتج مربح قوي";
+
+
+    analysisElement.textContent =
+      "المنتج يحقق هامش ربح جيد. ركّز الآن على زيادة المبيعات مع المحافظة على تكلفة الإعلان والتكاليف المتغيرة تحت السيطرة.";
 
   }
 
@@ -608,10 +845,16 @@
     const productName =
       document.getElementById("productName").value.trim();
 
+
     if (!productName) {
+
       alert("اكتب اسم المنتج أولًا.");
+
       return;
     }
+
+
+    calculateProfit();
 
 
     const product = {
@@ -644,59 +887,121 @@
         getNumber("units"),
 
       fixedCosts:
-        getNumber("fixedCosts")
+        getNumber("fixedCosts"),
+
+      targetMargin:
+        getNumber("targetMargin")
 
     };
 
 
-    // Calculate values for saved product
     const costPerUnit =
       product.purchasePrice +
       product.shipping +
       product.packaging +
       product.adCost;
 
+
     const contributionPerUnit =
       product.sellingPrice -
       costPerUnit;
+
 
     const revenue =
       product.sellingPrice *
       product.units;
 
+
+    const totalVariableCosts =
+      costPerUnit *
+      product.units;
+
+
     const totalCosts =
-      (costPerUnit * product.units) +
+      totalVariableCosts +
       product.fixedCosts;
 
+
     const netProfit =
-      revenue - totalCosts;
+      revenue -
+      totalCosts;
+
 
     const margin =
       revenue > 0
         ? (netProfit / revenue) * 100
         : 0;
 
+
+    const investment =
+      totalVariableCosts +
+      product.fixedCosts;
+
+
+    const roi =
+      investment > 0
+        ? (netProfit / investment) * 100
+        : 0;
+
+
     let breakEvenUnits = 0;
+
 
     if (
       product.fixedCosts > 0 &&
       contributionPerUnit > 0
     ) {
+
       breakEvenUnits =
         Math.ceil(
           product.fixedCosts /
           contributionPerUnit
         );
+
     }
 
 
-    product.costPerUnit = costPerUnit;
-    product.contributionPerUnit = contributionPerUnit;
-    product.revenue = revenue;
-    product.totalCosts = totalCosts;
-    product.netProfit = netProfit;
-    product.margin = margin;
-    product.breakEvenUnits = breakEvenUnits;
+    let targetPrice = 0;
+
+
+    if (
+      product.targetMargin >= 0 &&
+      product.targetMargin < 100
+    ) {
+
+      targetPrice =
+        costPerUnit /
+        (1 - product.targetMargin / 100);
+
+    }
+
+
+    product.costPerUnit =
+      costPerUnit;
+
+    product.contributionPerUnit =
+      contributionPerUnit;
+
+    product.revenue =
+      revenue;
+
+    product.totalCosts =
+      totalCosts;
+
+    product.netProfit =
+      netProfit;
+
+    product.margin =
+      margin;
+
+    product.roi =
+      roi;
+
+    product.breakEvenUnits =
+      breakEvenUnits;
+
+    product.targetPrice =
+      targetPrice;
 
 
     const products =
@@ -717,6 +1022,7 @@
     renderSavedProducts();
 
     alert("تم حفظ المنتج بنجاح ✅");
+
   }
 
 
@@ -724,6 +1030,7 @@
 
     const container =
       document.getElementById("savedProducts");
+
 
     const products =
       JSON.parse(
@@ -737,6 +1044,7 @@
         '<div class="empty">لا توجد منتجات محفوظة حتى الآن.</div>';
 
       return;
+
     }
 
 
@@ -773,6 +1081,16 @@
               </div>
 
               <div class="info-item">
+                الهامش:
+                ${Number(product.margin || 0).toFixed(2)}%
+              </div>
+
+              <div class="info-item">
+                ROI:
+                ${Number(product.roi || 0).toFixed(2)}%
+              </div>
+
+              <div class="info-item">
                 التعادل:
                 ${
                   product.breakEvenUnits > 0
@@ -804,6 +1122,7 @@
         `;
 
       }).join("");
+
   }
 
 
@@ -814,12 +1133,15 @@
         localStorage.getItem("mTradeProducts") || "[]"
       );
 
+
     const product =
       products.find(item => item.id === id);
 
 
     if (!product) {
+
       alert("لم يتم العثور على المنتج.");
+
       return;
     }
 
@@ -827,29 +1149,41 @@
     document.getElementById("productName").value =
       product.name;
 
+
     document.getElementById("currency").value =
       product.currency;
+
 
     document.getElementById("sellingPrice").value =
       product.sellingPrice;
 
+
     document.getElementById("purchasePrice").value =
       product.purchasePrice;
+
 
     document.getElementById("shipping").value =
       product.shipping;
 
+
     document.getElementById("packaging").value =
       product.packaging;
+
 
     document.getElementById("adCost").value =
       product.adCost;
 
+
     document.getElementById("units").value =
       product.units;
 
+
     document.getElementById("fixedCosts").value =
       product.fixedCosts || 0;
+
+
+    document.getElementById("targetMargin").value =
+      product.targetMargin || 30;
 
 
     calculateProfit();
@@ -867,6 +1201,7 @@
 
     const confirmed =
       confirm("هل تريد حذف هذا المنتج؟");
+
 
     if (!confirmed) return;
 
@@ -912,6 +1247,7 @@
 
     document.getElementById("fixedCosts").value = "";
 
+    document.getElementById("targetMargin").value = "30";
 
     document.getElementById("currency").value = "JOD";
 
@@ -937,6 +1273,21 @@
     document.getElementById("margin").textContent =
       "0%";
 
+    document.getElementById("roi").textContent =
+      "0%";
+
+    document.getElementById("productStatus").textContent =
+      "أدخل البيانات للتحليل";
+
+    document.getElementById("smartAnalysis").textContent =
+      "سيظهر هنا تحليل مختصر للمنتج بعد الحساب.";
+
+    document.getElementById("targetMarginDisplay").textContent =
+      "30%";
+
+    document.getElementById("targetPrice").textContent =
+      "0";
+
     document.getElementById("breakEvenUnits").textContent =
       "0";
 
@@ -944,7 +1295,10 @@
       "0";
 
     document.getElementById("breakEvenMessage").textContent =
-      'أدخل البيانات واضغط "احسب الأرباح".';
+      'أدخل البيانات واضغط "احسب وحلل".';
+
+    document.getElementById("targetMessage").textContent =
+      'أدخل البيانات واضغط "احسب وحلل".';
 
   }
 
@@ -961,10 +1315,7 @@
   }
 
 
-  // Load saved products when page opens
   renderSavedProducts();
 
-</script>
-
-</body>
-    </html>
+</script></body>
+  </html>
